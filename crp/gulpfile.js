@@ -7,6 +7,7 @@ var gulp = require('gulp'),
   rename = require('gulp-rename'),
   uglify = require('gulp-uglify'),
   del = require('del'),
+  newer = require('gulp-newer'),
   notify = require('gulp-notify');
 
 gulp.task('styles', function() {
@@ -28,6 +29,7 @@ gulp.task('scripts', function() {
 
 gulp.task('images', function() {
   return gulp.src(['src/**/*.png', 'src/**/*.jpg'])
+    .pipe(newer('.'))
     .pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
     .pipe(gulp.dest('.'))
     .pipe(notify({ message: 'Images task complete' }));
