@@ -1,0 +1,126 @@
+.skills
+  text-align center
+  &__item
+    margin-bottom 1em
+    display inline-block
+    &_separator
+      display block
+      width 100%
+  h2
+    span
+      font-size 0.65em
+      color $text-light
+      font-weight 300
+      text-transform none
+
+.skill-level
+  clear both
+  position relative
+  display inline-block
+  color $grey-light
+  font-size 20px
+  text-align center
+  margin 0 10px 10px
+  figcaption
+    border-radius 50%
+    border 10px solid $grey-dark
+    font-size 10px
+    line-height 80px
+    width 100px
+    height 100px
+    text-indent 200%
+    white-space nowrap
+    overflow hidden
+  .icon
+    position absolute
+    width 50px
+    height 50px
+    top 50%
+    left 50%
+    margin-top -25px
+    margin-left -25px
+    background-size 50px auto
+    &_html
+      @extends $partials--elements--skills--html5
+    &_css
+      @extends $partials--elements--skills--css3
+    &_js
+      @extends $partials--elements--skills--js
+    &_drupal
+      @extends $partials--elements--skills--drupal
+    &_drupal8
+      @extends $partials--elements--skills--drupal8
+    &_angular
+      @extends $partials--elements--skills--angular
+    &_jquery
+      @extends $partials--elements--skills--jquery
+    &_gulp
+      @extends $partials--elements--skills--gulp
+    &_sass
+      @extends $partials--elements--skills--sass
+    &_git
+      @extends $partials--elements--skills--git
+    &_mocha
+      @extends $partials--elements--skills--mocha
+    &_babel
+      @extends $partials--elements--skills--babel
+    &_webpack
+      @extends $partials--elements--skills--webpack
+    &_php
+      @extends $partials--elements--skills--php
+    &_mysql
+      @extends $partials--elements--skills--mysql
+    &_nodejs
+      @extends $partials--elements--skills--nodejs
+    &_stylus
+      @extends $partials--elements--skills--stylus
+    &_phpstorm
+      @extends $partials--elements--skills--phpstorm
+    &_webstorm
+      @extends $partials--elements--skills--webstorm
+    &_notepad
+      @extends $partials--elements--skills--notepad
+    &_ps
+      @extends $partials--elements--skills--ps
+    &_ai
+      @extends $partials--elements--skills--ai
+    &_sourcetree
+      @extends $partials--elements--skills--sourcetree
+    &_linux
+      @extends $partials--elements--skills--linux
+    &_wordpress
+      @extends $partials--elements--skills--wordpress
+    &_bem
+      @extends $partials--elements--skills--bem
+    &_en
+      @extends $partials--elements--skills--en
+  svg
+    position absolute
+    top 0
+    left 0
+    circle
+      stroke $orange-light
+      fill transparent
+      stroke-width 10
+      stroke-dashoffset 0
+      transition: stroke-dashoffset 1s linear;
+  &:hover
+    svg
+      circle
+        stroke-dashoffset 0 !important
+    &:after
+      display block
+      color $text-white
+      background-color rgba(0, 0, 0, 0.7)
+      padding 3px 5px
+      border-radius 3px
+      position absolute
+      top 50%
+      left 50%
+      transform translate(-50%, -50%)
+      content attr(data-name)' ~'attr(data-percent)'%'
+      font-size 10px
+
+.skill-info
+  &_hidden
+    display none
