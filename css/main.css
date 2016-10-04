@@ -108,7 +108,9 @@
 .skill-level .icon_wordpress {
   background-position: 0 100%;
 }
-* {
+*,
+:after,
+:before {
   box-sizing: border-box;
 }
 body {
@@ -176,16 +178,77 @@ a:hover {
   display: block;
   width: 100%;
 }
+.skills__item_popup .skill-level {
+  cursor: pointer;
+}
+.skills__item-container_active {
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  background-color: rgba(0,0,0,0.75);
+  z-index: 100;
+}
+.skills__item-container_active .skill-level {
+  margin: 50px auto 0;
+  width: 90%;
+  height: auto;
+  max-width: 900px;
+  background-color: #fff;
+  border-radius: 5px 5px 0 0;
+  padding: 15px 15px 0;
+  cursor: default;
+}
+.skills__item-container_active .skill-level .skill-close {
+  display: block;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  padding: 15px;
+  cursor: pointer;
+  color: #5c5761;
+  font-size: 20px;
+  line-height: 20px;
+}
+.skills__item-container_active .skill-level .skill-close:before {
+  content: '\2716';
+}
+.skills__item-container_active .skill-level figcaption {
+  display: none;
+}
+.skills__item-container_active .skill-level svg {
+  display: none;
+}
+.skills__item-container_active .skill-level .icon {
+  position: relative;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  top: auto;
+  left: auto;
+  background-size: 150px auto;
+}
+.skills__item-container_active .skill-level:hover:after {
+  content: '';
+  display: none;
+}
+.skills__item-container_closed .skill-info {
+  display: none;
+}
 .skills h2 span {
   font-size: 0.65em;
   color: #8d8594;
   font-weight: 300;
   text-transform: none;
+  white-space: nowrap;
 }
 .skill-level {
-  clear: both;
   position: relative;
-  display: inline-block;
   color: #8d8594;
   font-size: 20px;
   text-align: center;
@@ -225,6 +288,9 @@ a:hover {
   -webkit-transition: stroke-dashoffset 1s linear;
   transition: stroke-dashoffset 1s linear;
 }
+.skill-level .skill-close {
+  display: none;
+}
 .skill-level:hover svg circle {
   stroke-dashoffset: 0 !important;
 }
@@ -242,8 +308,67 @@ a:hover {
   content: attr(data-name) ' ~' attr(data-percent) '%';
   font-size: 10px;
 }
-.skill-info_hidden {
-  display: none;
+.skill-info {
+  position: relative;
+  width: 90%;
+  height: auto;
+  max-width: 900px;
+  background-color: #fff;
+  border-radius: 0 0 5px 5px;
+  padding: 15px;
+  margin: 0 auto 30px;
+}
+.skill-info__item {
+  text-align: left;
+  margin-bottom: 2em;
+}
+.skill-info__item h3 {
+  text-align: center;
+}
+.skill-info__item a,
+.skill-info__item a:visited {
+  color: #e95e4b;
+}
+.skill-info__item a:hover,
+.skill-info__item a:visited:hover,
+.skill-info__item a:active,
+.skill-info__item a:visited:active,
+.skill-info__item a:focus,
+.skill-info__item a:visited:focus {
+  color: #cf5242;
+}
+.skill-info__item ul {
+  padding: 0;
+  margin: 0 0 0.5em;
+}
+.skill-info__item li {
+  list-style: none;
+}
+.skill-info__item_sources ul {
+  padding-left: 20px;
+}
+.skill-info__item_sources li {
+  list-style: square;
+}
+.skill-info__item_goals ul {
+  padding-left: 20px;
+}
+.skill-info__item_goals li {
+  list-style: circle;
+}
+.skill-exp__item {
+  margin-bottom: 1em;
+}
+.skill-exp__item-caption {
+  margin-bottom: 0.5em;
+  border-bottom: 2px solid #4fe8ab;
+}
+.skill-exp__item-caption span {
+  font-weight: bold;
+  color: #5c5761;
+}
+.skill-exp__item-body {
+  padding: 10px;
 }
 .page-header {
   margin-bottom: 2em;
