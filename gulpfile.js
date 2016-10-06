@@ -13,11 +13,14 @@ const newer = require('gulp-newer');
 const svgSprite = require('gulp-svg-sprite');
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
+const cssnano = require('gulp-cssnano');
+const rev = require('gulp-rev');
+const revReplace = require('gulp-rev-replace');
+const combine = require('stream-combiner2').obj;
 
 const isDev = !process.env.NODE_ENV || process.env.NODE_ENV == 'dev';
 
 gulp.task('styles', function() {
-  console.log(resolver);
   return gulp.src('src/stylesheets/*.styl')
     .pipe(gulpIf(isDev, sourcemaps.init()))
     .pipe(stylus({
@@ -34,7 +37,9 @@ gulp.task('styles', function() {
     }))
     .pipe(autoprefixer())
     .pipe(gulpIf(isDev, sourcemaps.write()))
-    .pipe(gulp.dest('css'));
+    .pipe(gulpIf(!isDev, combine(cssnano(), rev())))
+    .pipe(gulp.dest('css'))
+    .pipe(gulpIf(!isDev, combine(rev.manifest('css.json'), gulp.dest('manifest'))));
 });
 
 gulp.task('styles:svg', function() {
@@ -75,26 +80,29 @@ gulp.task('images', function() {
 
 gulp.task('assets', function() {
   return gulp.src(['src/assets/**', '!src/stylesheets/**/*.{png, jpg}'], {since: gulp.lastRun('assets')})
+    .pipe(gulpIf(!isDev, revReplace({
+      manifest: gulp.src('manifest/css.json', {allowEmpty: true})
+    })))
     .pipe(gulp.dest('.'));
 });
 
 gulp.task('scripts', function() {
   return gulp.src('src/javascripts/**/*.js')
-    .pipe(gulpIf(!isDev, rename({suffix: '.min'})))
+    // .pipe(gulpIf(!isDev, rename({suffix: '.min'})))
     .pipe(gulpIf(!isDev, uglify()))
     .pipe(gulp.dest('js'))
 });
 
 gulp.task('clean', function() {
-  return del(['css', 'js', 'images']);
+  return del(['css', 'js', 'images', 'manifest']);
 });
 
 gulp.task('build', gulp.series(
   'clean',
   gulp.parallel(
-    'styles',
     'styles:svg',
     'styles:assets',
+    'styles',
     'images',
     'assets',
     'scripts'
@@ -102,7 +110,7 @@ gulp.task('build', gulp.series(
 ));
 
 gulp.task('watch', function() {
-  gulp.watch('src/stylesheets/**/*.styl', gulp.series('styles'));
+  gulp.watch(['src/stylesheets/**/*.styl', 'tmp/styles/sprite.styl'], gulp.series('styles'));
   gulp.watch('src/stylesheets/**/*.svg', gulp.series('styles:svg'));
   gulp.watch('src/stylesheets/**/*.{png, jpg}', gulp.series('styles:assets'));
   gulp.watch('src/assets/**', gulp.series('assets'));
